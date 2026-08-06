@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Ascend website design pricing guide." />
+    <title>Ascend — Pricing Guide</title>
+    <style>
+      :root {
+        --black: #050505;
+        --black-soft: #171717;
+        --white: #ffffff;
+        --paper: #f5f5f2;
+        --grey: #b9b9b4;
+        --ink-grey: #4a4a47;
+        --blue: #1769ff;
+        --green: #40d67a;
+        --pink: #f34f9b;
+        --line-light: rgba(255, 255, 255, 0.2);
+        --line-dark: rgba(5, 5, 5, 0.18);
+        --display: Bahnschrift, "Arial Narrow", "Helvetica Neue", sans-serif;
+        --body: "Segoe UI", Aptos, Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: #d9d9d5;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        background: var(--black);
+        color: var(--white);
+        font-family: var(--body);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .sheet {
+        width: min(100%, 1440px);
+        min-height: 100vh;
+        margin: 0 auto;
+        overflow: hidden;
+        background: var(--paper);
+        color: var(--black);
+      }
+
+      .topbar {
+        display: grid;
+        min-height: 72px;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 24px;
+        padding: 0 clamp(20px, 4vw, 64px);
+        background: var(--black);
+        color: var(--white);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--display);
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .signal {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: end;
+        gap: 3px;
+      }
+
+      .signal i {
+        display: block;
+        background: var(--white);
+      }
+
+      .signal i:nth-child(1) { height: 34%; }
+      .signal i:nth-child(2) { height: 66%; }
+      .signal i:nth-child(3) { height: 100%; background: var(--green); }
+
+      .document-label {
+        color: var(--grey);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .hero {
+        position: relative;
+        display: grid;
+        min-height: 340px;
+        grid-template-columns: minmax(0, 1fr) minmax(250px, 0.4fr);
+        align-items: end;
+        gap: clamp(32px, 7vw, 100px);
+        padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 64px) clamp(48px, 7vw, 88px);
+        background: var(--black);
+        color: var(--white);
+      }
+
+      .hero::before {
+        position: absolute;
+        top: 0;
+        right: clamp(20px, 4vw, 64px);
+        width: 180px;
+        height: 7px;
+        background: linear-gradient(90deg, var(--blue) 0 33.3%, var(--pink) 33.3% 66.6%, var(--green) 66.6%);
+        content: "";
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 32px;
+        color: var(--grey);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .eyebrow::before {
+        width: 8px;
+        height: 8px;
+        background: var(--green);
+        content: "";
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--display);
+        font-weight: 650;
+        letter-spacing: -0.04em;
+        line-height: 0.94;
+      }
+
+      h1 {
+        max-width: 11ch;
+        margin-bottom: 0;
+        font-size: clamp(54px, 8vw, 106px);
+      }
+
+      .hero-copy {
+        max-width: 420px;
+        margin: 0;
+        color: var(--grey);
+        font-size: clamp(16px, 1.6vw, 21px);
+      }
+
+      .pricing {
+        padding: clamp(48px, 7vw, 88px) clamp(20px, 4vw, 64px);
+      }
+
+      .pricing-heading {
+        display: grid;
+        grid-template-columns: 1fr minmax(260px, 0.42fr);
+        align-items: end;
+        gap: 32px;
+        margin-bottom: clamp(40px, 6vw, 72px);
+      }
+
+      .pricing-heading h2 {
+        max-width: 14ch;
+        margin-bottom: 0;
+        font-size: clamp(40px, 5vw, 70px);
+      }
+
+      .pricing-heading p {
+        margin: 0;
+        color: var(--ink-grey);
+        font-size: 15px;
+      }
+
+      .tiers {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        border-top: 1px solid var(--line-dark);
+        border-bottom: 1px solid var(--line-dark);
+      }
+
+      .tier {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        gap: 26px;
+        padding: 38px clamp(24px, 3vw, 42px);
+        border-right: 1px solid var(--line-dark);
+      }
+
+      .tier:first-child {
+        padding-left: 0;
+      }
+
+      .tier:last-child {
+        padding-right: 0;
+        border-right: 0;
+      }
+
+      .tier.featured {
+        background: var(--blue);
+        color: var(--white);
+      }
+
+      .tier-number {
+        color: var(--ink-grey);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+
+      .featured .tier-number,
+      .featured .price-label,
+      .featured .description {
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .tier h3 {
+        min-height: 64px;
+        margin: -10px 0 0;
+        font-size: clamp(38px, 4vw, 58px);
+      }
+
+      .badge {
+        width: max-content;
+        margin-top: -17px;
+        padding: 5px 8px;
+        background: var(--green);
+        color: var(--black);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .price-label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ink-grey);
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .price {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 7px;
+        font-family: var(--display);
+      }
+
+      .price strong {
+        font-size: clamp(46px, 5vw, 72px);
+        letter-spacing: -0.055em;
+        line-height: 0.9;
+      }
+
+      .price small {
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .description {
+        min-height: 72px;
+        margin: 0;
+        color: var(--ink-grey);
+        font-size: 14px;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      li {
+        display: grid;
+        grid-template-columns: 8px 1fr;
+        gap: 12px;
+        padding: 12px 0;
+        border-top: 1px solid var(--line-dark);
+        font-size: 13px;
+      }
+
+      li::before {
+        width: 7px;
+        height: 7px;
+        margin-top: 7px;
+        background: var(--green);
+        content: "";
+      }
+
+      .featured li {
+        border-top-color: var(--line-light);
+      }
+
+      .care {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 32px;
+        margin-top: clamp(28px, 4vw, 50px);
+        padding: clamp(26px, 4vw, 42px);
+        background: var(--green);
+      }
+
+      .care small {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .care h3 {
+        max-width: 22ch;
+        margin-bottom: 8px;
+        font-size: clamp(28px, 3.2vw, 46px);
+      }
+
+      .care p {
+        max-width: 740px;
+        margin: 0;
+        color: #16351f;
+        font-size: 13px;
+      }
+
+      .care-price {
+        min-width: max-content;
+        font-family: var(--display);
+        text-align: right;
+      }
+
+      .care-price span {
+        display: block;
+        font-family: var(--body);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .care-price strong {
+        font-size: clamp(42px, 4vw, 62px);
+        letter-spacing: -0.05em;
+      }
+
+      .care-price em {
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 700;
+      }
+
+      .fine-print {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 28px;
+        padding: 28px clamp(20px, 4vw, 64px);
+        border-top: 1px solid var(--line-light);
+        background: var(--black);
+        color: var(--grey);
+        font-size: 10px;
+      }
+
+      .fine-print p {
+        max-width: 850px;
+        margin: 0;
+      }
+
+      .print-button {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        min-height: 44px;
+        padding: 0 16px;
+        border: 0;
+        background: var(--white);
+        color: var(--black);
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .print-button:hover {
+        background: var(--green);
+      }
+
+      @media (max-width: 820px) {
+        .hero,
+        .pricing-heading {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: 0;
+        }
+
+        .tiers {
+          grid-template-columns: 1fr;
+        }
+
+        .tier,
+        .tier:first-child,
+        .tier:last-child {
+          padding: 34px 0;
+          border-right: 0;
+          border-bottom: 1px solid var(--line-dark);
+        }
+
+        .tier:last-child {
+          border-bottom: 0;
+        }
+
+        .tier.featured {
+          margin: 0 -20px;
+          padding-right: 20px;
+          padding-left: 20px;
+        }
+
+        .tier h3,
+        .description {
+          min-height: 0;
+        }
+
+        .care,
+        .fine-print {
+          grid-template-columns: 1fr;
+        }
+
+        .care-price {
+          text-align: left;
+        }
+      }
+
+      @media print {
+        @page {
+          size: A4 landscape;
+          margin: 0;
+        }
+
+        html,
+        body {
+          background: var(--white);
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+
+        .sheet {
+          width: 297mm;
+          min-height: 210mm;
+        }
+
+        .topbar {
+          min-height: 14mm;
+        }
+
+        .hero {
+          min-height: 50mm;
+          padding-top: 12mm;
+          padding-bottom: 11mm;
+        }
+
+        h1 {
+          font-size: 58px;
+        }
+
+        .pricing {
+          padding-top: 9mm;
+          padding-bottom: 8mm;
+        }
+
+        .pricing-heading {
+          margin-bottom: 8mm;
+        }
+
+        .tier {
+          gap: 14px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
+
+        .tier h3 {
+          min-height: 42px;
+          font-size: 36px;
+        }
+
+        .price strong {
+          font-size: 45px;
+        }
+
+        .description {
+          min-height: 47px;
+        }
+
+        li {
+          padding: 7px 0;
+          font-size: 11px;
+        }
+
+        .care {
+          margin-top: 7mm;
+          padding: 6mm;
+        }
+
+        .care h3 {
+          font-size: 28px;
+        }
+
+        .care-price strong {
+          font-size: 40px;
+        }
+
+        .fine-print {
+          padding-top: 5mm;
+          padding-bottom: 5mm;
+        }
+
+        .print-button {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="sheet">
+      <header class="topbar">
+        <div class="brand">
+          <span class="signal" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>Ascend</span>
+        </div>
+        <span class="document-label">Website pricing guide / 2026</span>
+      </header>
+
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Websites for businesses ready to evolve</p>
+          <h1>Choose your next level.</h1>
+        </div>
+        <p class="hero-copy">
+          Clear starting points, shaped around the real needs of your business. No bloated agency
+          overhead. No confusing list of extras.
+        </p>
+      </section>
+
+      <section class="pricing">
+        <div class="pricing-heading">
+          <h2>Three scopes. One standard.</h2>
+          <p>
+            Every Ascend website is custom-designed. These prices establish the starting point;
+            your final quote is confirmed after a focused discovery call.
+          </p>
+        </div>
+
+        <div class="tiers">
+          <article class="tier">
+            <span class="tier-number">01 / START STRONG</span>
+            <h3>Launch</h3>
+            <div>
+              <span class="price-label">Starting from</span>
+              <div class="price"><strong>R6 500</strong><small>once-off</small></div>
+            </div>
+            <p class="description">
+              A focused first website that gives a new business instant credibility.
+            </p>
+            <ul>
+              <li>Up to 3 essential pages</li>
+              <li>Custom responsive design</li>
+              <li>Contact or enquiry form</li>
+              <li>Search-ready foundations</li>
+              <li>Launch support</li>
+            </ul>
+          </article>
+
+          <article class="tier featured">
+            <span class="tier-number">02 / MOVE FORWARD</span>
+            <h3>Upgrade</h3>
+            <span class="badge">Most businesses start here</span>
+            <div>
+              <span class="price-label">Starting from</span>
+              <div class="price"><strong>R12 500</strong><small>once-off</small></div>
+            </div>
+            <p class="description">
+              A strategic rebuild for a business whose current website is holding it back.
+            </p>
+            <ul>
+              <li>Up to 7 core pages</li>
+              <li>Content and navigation reset</li>
+              <li>Custom responsive rebuild</li>
+              <li>Analytics and performance setup</li>
+              <li>Launch support</li>
+            </ul>
+          </article>
+
+          <article class="tier">
+            <span class="tier-number">03 / BUILD BEYOND</span>
+            <h3>Custom</h3>
+            <div>
+              <span class="price-label">Starting from</span>
+              <div class="price"><strong>R20 000</strong><small>once-off</small></div>
+            </div>
+            <p class="description">
+              A tailored digital experience for a bigger idea, integration, or customer journey.
+            </p>
+            <ul>
+              <li>Scope shaped around the project</li>
+              <li>Advanced interactions or booking</li>
+              <li>Tailored integrations</li>
+              <li>Reusable page systems</li>
+              <li>Technical handover</li>
+            </ul>
+          </article>
+        </div>
+
+        <aside class="care">
+          <div>
+            <small>Optional website care</small>
+            <h3>Keep it current after launch.</h3>
+            <p>Managed hosting, backups, updates, and a small monthly change allowance.</p>
+          </div>
+          <div class="care-price">
+            <span>Starting from</span>
+            <strong>R650</strong> <em>/ month</em>
+          </div>
+        </aside>
+      </section>
+
+      <footer class="fine-print">
+        <p>
+          Prices are starting points and exclude third-party costs such as domains, paid software,
+          stock imagery, and specialist integrations. These are disclosed and approved before work begins.
+        </p>
+        <p>South Africa · All prices in ZAR</p>
+      </footer>
+    </main>
+
+    <button class="print-button" type="button" onclick="window.print()">Print / Save as PDF</button>
+  </body>
+</html>
