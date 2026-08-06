@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Preserve generated preview assets exactly as exported.
+public/previews/carli-and-co/_next/** binary

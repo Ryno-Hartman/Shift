@@ -51,8 +51,9 @@ const projectPreviewSettings = {
     openLabel: 'Visit live site',
   },
   'carli-and-co': {
-    publicUrl: null,
-    openLabel: 'View case study',
+    previewUrl: '/previews/carli-and-co/',
+    publicUrl: '/previews/carli-and-co/',
+    openLabel: 'Open full website',
   },
 }
 
@@ -265,8 +266,59 @@ function StaticProjectPreview({ project, hero = false }) {
   )
 }
 
+function EmbeddedProjectPreview({ project, hero = false }) {
+  const [active, setActive] = useState(false)
+  const settings = projectPreviewSettings[project.slug]
+
+  return (
+    <div
+      className={`project-visual project-visual--${project.accent} project-visual--embedded${hero ? ' project-visual--hero' : ''}`}
+      aria-label={`Interactive preview of the ${project.title} website`}
+    >
+      <div className="project-preview project-preview--embedded">
+        <div className="project-preview__bar">
+          <span className="project-preview__status"><i /> Actual website</span>
+          <strong>{project.title}</strong>
+          {active ? (
+            <button className="project-preview__exit" type="button" onClick={() => setActive(false)}>
+              Exit preview
+            </button>
+          ) : (
+            <a href={settings.publicUrl} target="_blank" rel="noreferrer">
+              {settings.openLabel} <Arrow />
+            </a>
+          )}
+        </div>
+        <div className={`project-preview__site${active ? ' is-active' : ''}`}>
+          <iframe
+            src={settings.previewUrl}
+            title={`${project.title} website preview`}
+            loading="lazy"
+            sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+          />
+          {!active && (
+            <button
+              className="project-preview__activate"
+              type="button"
+              onClick={() => setActive(true)}
+              aria-label={`Interact with the actual ${project.title} website`}
+            >
+              <span>Explore the actual website</span>
+              <small>Tap to interact with every page</small>
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function ProjectVisual({ project, hero = false, interactive = false }) {
   if (interactive && projectPreviewSettings[project.slug]) {
+    if (projectPreviewSettings[project.slug].previewUrl) {
+      return <EmbeddedProjectPreview project={project} hero={hero} />
+    }
+
     return <StaticProjectPreview project={project} hero={hero} />
   }
 
@@ -744,7 +796,7 @@ function ProjectPage({ project }) {
         <ProjectVisual
           project={project}
           hero
-          interactive={Boolean(projectPreviewSettings[project.slug]?.publicUrl)}
+          interactive={Boolean(projectPreviewSettings[project.slug])}
         />
         <div className="case-meta">
           <div><span>Client</span><strong>{project.title}</strong></div>

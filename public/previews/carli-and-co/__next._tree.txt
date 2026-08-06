@@ -1,0 +1,2 @@
+:HL["/previews/carli-and-co/_next/static/chunks/0ul9xif2zk1qz.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"OGR6WM9UD-1NqJspTJG9I"}
