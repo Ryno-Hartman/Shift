@@ -47,16 +47,12 @@ const projects = [
 
 const projectPreviewSettings = {
   'gouveia-socials': {
-    environmentUrl: import.meta.env.VITE_GOUVEIA_PREVIEW_URL,
-    localUrl: 'http://127.0.0.1:4174/',
     publicUrl: 'https://gouveia-socials.co.za/',
-    openLabel: 'Open full site',
+    openLabel: 'Visit live site',
   },
   'carli-and-co': {
-    environmentUrl: import.meta.env.VITE_CARLI_PREVIEW_URL,
-    localUrl: 'http://127.0.0.1:4175/',
     publicUrl: null,
-    openLabel: 'Open project',
+    openLabel: 'View case study',
   },
 }
 
@@ -117,8 +113,19 @@ function Brand({ compact = false }) {
   )
 }
 
-function Arrow({ down = false }) {
-  return <span aria-hidden="true">{down ? '↓' : '↗'}</span>
+function Arrow({ down = false, direction = 'external' }) {
+  const resolvedDirection = down ? 'down' : direction
+
+  return (
+    <span className={`icon-arrow icon-arrow--${resolvedDirection}`} aria-hidden="true">
+      <svg viewBox="0 0 20 20" fill="none">
+        {resolvedDirection === 'external' && <path d="M5 15 15 5M8 5h7v7" />}
+        {resolvedDirection === 'down' && <path d="M10 4v12M5.5 11.5 10 16l4.5-4.5" />}
+        {resolvedDirection === 'left' && <path d="M16 10H4M8.5 5.5 4 10l4.5 4.5" />}
+        {resolvedDirection === 'up' && <path d="M10 16V4M5.5 8.5 10 4l4.5 4.5" />}
+      </svg>
+    </span>
+  )
 }
 
 function Header({ pathname }) {
@@ -156,79 +163,102 @@ function Header({ pathname }) {
           aria-controls="mobile-menu"
           onClick={() => setMenuOpen((current) => !current)}
         >
-          <span />
-          <span />
+          <span className="menu-button__label">{menuOpen ? 'Close' : 'Menu'}</span>
+          <span className="menu-button__icon" aria-hidden="true">
+            <i />
+            <i />
+          </span>
         </button>
       </header>
-      <div className={`mobile-menu${menuOpen ? ' mobile-menu--open' : ''}`} id="mobile-menu">
+      <div
+        className={`mobile-menu${menuOpen ? ' mobile-menu--open' : ''}`}
+        id="mobile-menu"
+        aria-hidden={!menuOpen}
+      >
         <nav aria-label="Mobile navigation">
           {[{ label: 'Home', href: '/' }, ...navigation].map((item, index) => (
             <SiteLink key={item.href} href={item.href} className={pathname === item.href ? 'active' : ''}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              {item.label}
-              <Arrow />
+              <span className="mobile-menu__index">{String(index + 1).padStart(2, '0')}</span>
+              <span className="mobile-menu__label">{item.label}</span>
+              <span className="mobile-menu__state" aria-hidden="true"><i /><i /><i /></span>
             </SiteLink>
           ))}
         </nav>
-        <p>Web design for South African businesses ready to move forward.</p>
+        <div className="mobile-menu__footer">
+          <p>Web design for South African businesses ready to move forward.</p>
+          <div>
+            <a href="mailto:we.ascend.support@gmail.com">Email</a>
+            <a href="https://www.instagram.com/ascend.co.za/" target="_blank" rel="noreferrer">Instagram</a>
+          </div>
+        </div>
       </div>
     </>
   )
 }
 
-function InteractiveProjectPreview({ project, hero = false }) {
-  const [active, setActive] = useState(false)
-  const [loaded, setLoaded] = useState(false)
+function ProjectMockup({ project }) {
+  return (
+    <div className="mock-browser">
+      <div className="mock-browser__bar">
+        <span />
+        <span>{project.title}</span>
+        <i />
+      </div>
+      {project.slug === 'gouveia-socials' && (
+        <div className="mock-gouveia">
+          <div className="mock-gouveia__copy">
+            <small>Branding · Social media · Websites</small>
+            <strong>Design that makes brands unforgettable.</strong>
+            <i />
+          </div>
+          <div className="mock-gouveia__tiles">
+            <span>Gouveia</span>
+            <span>Start your project</span>
+          </div>
+        </div>
+      )}
+      {project.slug === 'carli-and-co' && (
+        <div className="mock-carli">
+          <div className="mock-carli__copy">
+            <small>Organic hair &amp; beauty</small>
+            <strong>Look &amp; feel beautiful.</strong>
+            <span className="mock-inline-link">Explore the salon <Arrow /></span>
+          </div>
+          <div className="mock-carli__portrait">
+            <i />
+            <b>Carli<br />&amp; Co</b>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function StaticProjectPreview({ project, hero = false }) {
   const settings = projectPreviewSettings[project.slug]
-  const previewUrl = settings.environmentUrl
-    || (import.meta.env.DEV ? settings.localUrl : (settings.publicUrl || settings.localUrl))
-  const openUrl = settings.publicUrl || previewUrl
+  const publicUrl = settings?.publicUrl
 
   return (
     <div
-      className={`project-visual project-visual--${project.accent} project-visual--interactive${hero ? ' project-visual--hero' : ''}`}
-      aria-label={`Interactive preview of the ${project.title} website`}
+      className={`project-visual project-visual--${project.accent} project-visual--static${hero ? ' project-visual--hero' : ''}`}
+      aria-label={`Preview of the ${project.title} website`}
     >
-      <div className="live-preview">
-        <div className="live-preview__bar">
-          <span className="live-preview__status"><i /> Live project</span>
+      <div className="project-preview">
+        <div className="project-preview__bar">
+          <span className="project-preview__status"><i /> Project preview</span>
           <strong>{project.title}</strong>
-          {active ? (
-            <button
-              className="live-preview__exit"
-              type="button"
-              onClick={() => setActive(false)}
-            >
-              Exit preview
-            </button>
-          ) : (
-            <a href={openUrl} target="_blank" rel="noreferrer">
+          {publicUrl ? (
+            <a href={publicUrl} target="_blank" rel="noreferrer">
               {settings.openLabel} <Arrow />
             </a>
+          ) : (
+            <SiteLink href={`/work/${project.slug}`}>
+              {settings.openLabel} <Arrow />
+            </SiteLink>
           )}
         </div>
-        <div className={`live-preview__viewport${active ? ' is-active' : ''}`}>
-          {!loaded && <p className="live-preview__loading">Loading the live website…</p>}
-          <iframe
-            className={loaded ? 'is-loaded' : ''}
-            src={previewUrl}
-            title={`${project.title} interactive website preview`}
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
-            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-            onLoad={() => setLoaded(true)}
-          />
-          {!active ? (
-            <button
-              className="live-preview__activate"
-              type="button"
-              onClick={() => setActive(true)}
-              aria-label={`Activate the interactive ${project.title} website preview`}
-            >
-              <span>Interact with website</span>
-              <small>Click to explore the live project</small>
-            </button>
-          ) : null}
+        <div className="project-preview__canvas">
+          <ProjectMockup project={project} />
         </div>
       </div>
     </div>
@@ -237,7 +267,7 @@ function InteractiveProjectPreview({ project, hero = false }) {
 
 function ProjectVisual({ project, hero = false, interactive = false }) {
   if (interactive && projectPreviewSettings[project.slug]) {
-    return <InteractiveProjectPreview project={project} hero={hero} />
+    return <StaticProjectPreview project={project} hero={hero} />
   }
 
   return (
@@ -246,39 +276,7 @@ function ProjectVisual({ project, hero = false, interactive = false }) {
       aria-label={`Stylised preview of the ${project.title} website`}
       role="img"
     >
-      <div className="mock-browser">
-        <div className="mock-browser__bar">
-          <span />
-          <span>{project.title}</span>
-          <i />
-        </div>
-        {project.slug === 'gouveia-socials' && (
-          <div className="mock-gouveia">
-            <div className="mock-gouveia__copy">
-              <small>Branding · Social media · Websites</small>
-              <strong>Design that makes brands unforgettable.</strong>
-              <i />
-            </div>
-            <div className="mock-gouveia__tiles">
-              <span>Gouveia</span>
-              <span>Start your project</span>
-            </div>
-          </div>
-        )}
-        {project.slug === 'carli-and-co' && (
-          <div className="mock-carli">
-            <div className="mock-carli__copy">
-              <small>Organic hair & beauty</small>
-              <strong>Look &amp; feel beautiful.</strong>
-              <span>Explore the salon →</span>
-            </div>
-            <div className="mock-carli__portrait">
-              <i />
-              <b>Carli<br />&amp; Co</b>
-            </div>
-          </div>
-        )}
-      </div>
+      <ProjectMockup project={project} />
     </div>
   )
 }
@@ -738,12 +736,16 @@ function ProjectPage({ project }) {
   return (
     <main className={`case-study case-study--${project.accent}`}>
       <section className="case-hero page-shell">
-        <SiteLink href="/work" className="back-link">← All work</SiteLink>
+        <SiteLink href="/work" className="back-link"><Arrow direction="left" /> All work</SiteLink>
         <div className="case-hero__heading">
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
         </div>
-        <ProjectVisual project={project} hero interactive={Boolean(projectPreviewSettings[project.slug])} />
+        <ProjectVisual
+          project={project}
+          hero
+          interactive={Boolean(projectPreviewSettings[project.slug]?.publicUrl)}
+        />
         <div className="case-meta">
           <div><span>Client</span><strong>{project.title}</strong></div>
           <div><span>Category</span><strong>{project.category}</strong></div>
@@ -884,7 +886,7 @@ function Footer() {
         <p>South Africa</p>
         <p>© {new Date().getFullYear()} Ascend</p>
         <p>Built for what comes next.</p>
-        <a className="site-footer__back" href="#page-content">Back to top <span aria-hidden="true">↑</span></a>
+        <a className="site-footer__back" href="#page-content">Back to top <Arrow direction="up" /></a>
       </div>
     </footer>
   )
