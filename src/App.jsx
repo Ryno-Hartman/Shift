@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import ascendNavLogo from '../assets/brand/ascend-logo-nav-512.png'
+import carliProjectLogo from '../assets/brand/projects/carli-and-co-logo-black.png'
+import gouveiaProjectLogo from '../assets/brand/projects/gouveia-socials-logo-black.png'
 
 const navigation = [
   { label: 'Work', href: '/work' },
@@ -25,6 +27,8 @@ const projects = [
       'A high-impact opening, confident editorial scale, and a simple path from discovering the service to starting a conversation.',
     outcome:
       'A flexible portfolio foundation that gives the brand room to grow, add proof, and turn attention into enquiries.',
+    logo: gouveiaProjectLogo,
+    logoAlt: 'Gouveia Socials logo',
   },
   {
     slug: 'carli-and-co',
@@ -42,13 +46,16 @@ const projects = [
       'Natural colours, confident typography, clear service grouping, and prominent booking actions across every device.',
     outcome:
       'A richer digital home that helps new clients understand the salon, browse services, and reach the booking flow without friction.',
+    logo: carliProjectLogo,
+    logoAlt: 'Carli & Co Organic Hair & Beauty logo',
   },
 ]
 
 const projectPreviewSettings = {
   'gouveia-socials': {
+    previewUrl: '/previews/gouveia-socials/',
     publicUrl: 'https://gouveia-socials.co.za/',
-    openLabel: 'Visit live site',
+    openLabel: 'Visit live website',
   },
   'carli-and-co': {
     previewUrl: '/previews/carli-and-co/',
@@ -235,6 +242,16 @@ function ProjectMockup({ project }) {
   )
 }
 
+function ProjectBrandMark({ project, featured = false }) {
+  return (
+    <div
+      className={`project-brand-mark project-brand-mark--${project.slug}${featured ? ' project-brand-mark--featured' : ''}`}
+    >
+      <img src={project.logo} alt={project.logoAlt} />
+    </div>
+  )
+}
+
 function StaticProjectPreview({ project, hero = false }) {
   const settings = projectPreviewSettings[project.slug]
   const publicUrl = settings?.publicUrl
@@ -334,7 +351,7 @@ function ProjectVisual({ project, hero = false, interactive = false }) {
 }
 
 function ProjectRow({ project, reverse = false }) {
-  const hasInteractivePreview = project.slug === 'carli-and-co'
+  const hasInteractivePreview = Boolean(projectPreviewSettings[project.slug]?.previewUrl)
 
   return (
     <article className={`project-row${reverse ? ' project-row--reverse' : ''}`} data-reveal>
@@ -352,6 +369,7 @@ function ProjectRow({ project, reverse = false }) {
           <span>{project.number}</span>
           <p>{project.category}</p>
         </div>
+        <ProjectBrandMark project={project} />
         <h3>{project.title}</h3>
         <p>{project.tagline}</p>
         <ul aria-label="Services provided">
@@ -789,6 +807,7 @@ function ProjectPage({ project }) {
     <main className={`case-study case-study--${project.accent}`}>
       <section className="case-hero page-shell">
         <SiteLink href="/work" className="back-link"><Arrow direction="left" /> All work</SiteLink>
+        <ProjectBrandMark project={project} featured />
         <div className="case-hero__heading">
           <h1>{project.title}</h1>
           <p>{project.summary}</p>

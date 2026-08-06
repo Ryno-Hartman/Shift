@@ -3,3 +3,4 @@
 
 # Preserve generated preview assets exactly as exported.
 public/previews/carli-and-co/_next/** binary
+public/previews/gouveia-socials/assets/** binary
