@@ -1642,15 +1642,39 @@ p {
   border-bottom: 1px solid var(--line-dark);
 }
 
-.contact-details > div span {
+.contact-details > div > span {
   color: var(--grey-mid);
   font-size: 0.68rem;
+}
+
+.contact-details > div a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: color 220ms ease;
+}
+
+.contact-details > div a:hover {
+  color: var(--green);
+}
+
+.contact-details > div a > span {
+  flex: 0 0 auto;
+  color: var(--green);
+  font-size: 1.1rem;
+  transition: transform 280ms var(--ease-out);
+}
+
+.contact-details > div a:hover > span {
+  transform: translate(3px, -3px);
 }
 
 .contact-details > div strong {
   font-family: var(--display);
   font-size: 1.2rem;
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .contact-details__note {

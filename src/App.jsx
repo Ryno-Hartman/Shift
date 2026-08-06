@@ -660,8 +660,22 @@ function ContactPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    setStatus('Your message is ready. The business contact details will be connected here shortly—nothing was sent yet.')
-    window.setTimeout(() => setStatus(''), 6000)
+    const form = new FormData(event.currentTarget)
+    const name = form.get('name')
+    const email = form.get('email')
+    const business = form.get('business') || 'Not provided'
+    const message = form.get('message')
+    const subject = `New Ascend project enquiry from ${name}`
+    const body = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Business: ${business}`,
+      '',
+      message,
+    ].join('\n')
+
+    setStatus('Opening your email app with the message ready to send.')
+    window.location.href = `mailto:we.ascend.support@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
   }
 
   return (
@@ -677,18 +691,20 @@ function ContactPage() {
           <p>Contact channels</p>
           <div>
             <span>Email</span>
-            <strong>Work email launching soon</strong>
-          </div>
-          <div>
-            <span>WhatsApp</span>
-            <strong>Business number launching soon</strong>
+            <a href="mailto:we.ascend.support@gmail.com">
+              <strong>we.ascend.support@gmail.com</strong>
+              <Arrow />
+            </a>
           </div>
           <div>
             <span>Instagram</span>
-            <strong>Ascend profile launching soon</strong>
+            <a href="https://www.instagram.com/ascend.co.za/" target="_blank" rel="noreferrer">
+              <strong>@ascend.co.za</strong>
+              <Arrow />
+            </a>
           </div>
           <p className="contact-details__note">
-            These details are intentionally left unlinked until the official Ascend accounts are ready.
+            Email is best for project enquiries. Instagram is open for updates and direct messages.
           </p>
         </div>
         <form className="contact-form" onSubmit={handleSubmit} data-reveal>
