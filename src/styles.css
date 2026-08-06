@@ -1086,11 +1086,11 @@ p {
 .project-brand-mark--carli-and-co {
   --brand-mark-width: 19rem;
 
-  height: 5rem;
+  height: 6rem;
 }
 
 .project-brand-mark--carli-and-co img {
-  transform: translate(-50%, -68%);
+  transform: translate(-50%, -63%);
 }
 
 .project-brand-mark--featured {
@@ -1106,7 +1106,7 @@ p {
 .project-brand-mark--featured.project-brand-mark--carli-and-co {
   --brand-mark-width: 26rem;
 
-  height: 7rem;
+  height: 8.5rem;
 }
 
 .project-row__content h3 {
