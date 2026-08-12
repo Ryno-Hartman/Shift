@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import ascendNavLogo from '../assets/brand/ascend-logo-nav-512.png'
+import shiftNavLogo from '../assets/brand/shift-logo-navbar-256.png'
+import shiftAboutLogo from '../assets/brand/shift-logo-about-1200.png'
 import carliProjectLogo from '../assets/brand/projects/carli-and-co-logo-black.png'
 import gouveiaProjectLogo from '../assets/brand/projects/gouveia-socials-logo-black.png'
 
@@ -9,6 +10,11 @@ const navigation = [
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ]
+
+const socialLinks = {
+  whatsapp: 'https://wa.me/message/LZSJURID2QE4F1',
+  instagram: 'https://www.instagram.com/getshiftdone.co.za?igsh=Nzd0anZzbmttdmsw&utm_source=qr',
+}
 
 const projects = [
   {
@@ -114,10 +120,20 @@ function SiteLink({ href, children, className = '', onClick, ariaLabel }) {
 
 function Brand({ compact = false }) {
   return (
-    <SiteLink href="/" className={`brand${compact ? ' brand--compact' : ''}`} ariaLabel="Ascend home">
-      <img className="brand-logo" src={ascendNavLogo} alt="" width="512" height="512" aria-hidden="true" />
-      <span className="brand-name">Ascend</span>
+    <SiteLink href="/" className={`brand${compact ? ' brand--compact' : ''}`} ariaLabel="Shift home">
+      <img className="brand-logo" src={shiftNavLogo} alt="" width="512" height="512" aria-hidden="true" />
+      <span className="brand-name">SHIFT</span>
     </SiteLink>
+  )
+}
+
+function HeroLine({ children, outline = false }) {
+  return (
+    <span className={`hero-line${outline ? ' hero-line--outline' : ''}`}>
+      {[...children].map((character, index) => (
+        <i key={`${character}-${index}`}>{character === ' ' ? '\u00a0' : character}</i>
+      ))}
+    </span>
   )
 }
 
@@ -131,6 +147,37 @@ function Arrow({ down = false, direction = 'external' }) {
         {resolvedDirection === 'down' && <path d="M10 4v12M5.5 11.5 10 16l4.5-4.5" />}
         {resolvedDirection === 'left' && <path d="M16 10H4M8.5 5.5 4 10l4.5 4.5" />}
         {resolvedDirection === 'up' && <path d="M10 16V4M5.5 8.5 10 4l4.5 4.5" />}
+      </svg>
+    </span>
+  )
+}
+
+function SocialIcon({ name }) {
+  return (
+    <span className={`social-icon social-icon--${name}`} aria-hidden="true">
+      {name === 'instagram' && (
+        <svg viewBox="0 0 24 24" fill="none">
+          <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle className="social-icon__dot" cx="17.5" cy="6.5" r="1" />
+        </svg>
+      )}
+      {name === 'whatsapp' && (
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M20.25 11.5a8.25 8.25 0 0 1-12.1 7.3L3.5 20l1.25-4.45A8.25 8.25 0 1 1 20.25 11.5Z" />
+          <path d="M8.1 7.15c.35 3.35 3.1 6.1 6.45 6.45l1.25-1.45 2.05.95v1.85c0 .65-.55 1.2-1.2 1.2A9.8 9.8 0 0 1 6.85 6.35c0-.65.55-1.2 1.2-1.2H9.9l.95 2.05L9.4 8.45" />
+        </svg>
+      )}
+    </span>
+  )
+}
+
+function ChatIcon() {
+  return (
+    <span className="chat-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M20 11.25c0 4.42-3.8 8-8.5 8-1.3 0-2.53-.27-3.63-.76L4 19.75l1.18-3.47A7.7 7.7 0 0 1 3 11.25c0-4.42 3.8-8 8.5-8s8.5 3.58 8.5 8Z" />
+        <path d="M7.75 9.5h7.5M7.75 13h5" />
       </svg>
     </span>
   )
@@ -161,7 +208,7 @@ function Header({ pathname }) {
           ))}
         </nav>
         <SiteLink href="/contact" className="header-cta">
-          Start a project <Arrow />
+          Start your shift <Arrow />
         </SiteLink>
         <button
           className="menu-button"
@@ -193,10 +240,17 @@ function Header({ pathname }) {
           ))}
         </nav>
         <div className="mobile-menu__footer">
-          <p>Web design for South African businesses ready to move forward.</p>
+          <p>Web design for South African businesses ready to make the shift.</p>
           <div>
-            <a href="mailto:we.ascend.support@gmail.com">Email</a>
-            <a href="https://www.instagram.com/ascend.co.za/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="mailto:hello@getshiftdone.co.za">Email</a>
+            <a href={socialLinks.whatsapp} target="_blank" rel="noreferrer">
+              <SocialIcon name="whatsapp" />
+              WhatsApp
+            </a>
+            <a href={socialLinks.instagram} target="_blank" rel="noreferrer">
+              <SocialIcon name="instagram" />
+              Instagram
+            </a>
           </div>
         </div>
       </div>
@@ -406,16 +460,16 @@ function HomePage() {
           <span>South African web design studio</span>
           <span>Available for selected projects</span>
         </div>
-        <h1 aria-label="Your business moved forward. Your website should too.">
-          <span className="hero-line"><i>Y</i><i>o</i><i>u</i><i>r</i> <i>b</i><i>u</i><i>s</i><i>i</i><i>n</i><i>e</i><i>s</i><i>s</i></span>
-          <span className="hero-line hero-line--outline"><i>m</i><i>o</i><i>v</i><i>e</i><i>d</i> <i>f</i><i>o</i><i>r</i><i>w</i><i>a</i><i>r</i><i>d</i><i>.</i></span>
-          <span className="hero-line"><i>Y</i><i>o</i><i>u</i><i>r</i> <i>w</i><i>e</i><i>b</i><i>s</i><i>i</i><i>t</i><i>e</i></span>
-          <span className="hero-line"><i>s</i><i>h</i><i>o</i><i>u</i><i>l</i><i>d</i> <i>t</i><i>o</i><i>o</i><i>.</i></span>
+        <h1 aria-label="Make the shift. Get shift done.">
+          <HeroLine>Make the</HeroLine>
+          <HeroLine outline>shift.</HeroLine>
+          <HeroLine>Get shift</HeroLine>
+          <HeroLine>done.</HeroLine>
         </h1>
         <div className="hero-bottom">
           <p>
-            Ascend creates polished, practical websites for local businesses ready to look sharper,
-            work smarter, and win better opportunities.
+            Shift creates polished, practical websites for local businesses ready to look sharper,
+            work smarter, and leave outdated behind.
           </p>
           <div className="hero-actions">
             <SiteLink href="/work" className="button button--light">Explore the work <Arrow /></SiteLink>
@@ -432,7 +486,7 @@ function HomePage() {
         </div>
       </section>
 
-      <div className="marquee" aria-label="Ascend services">
+      <div className="marquee" aria-label="Shift services">
         <div>
           <span>Web design</span><i />
           <span>Website upgrades</span><i />
@@ -466,10 +520,10 @@ function HomePage() {
         </div>
         <div className="manifesto-support page-shell" data-reveal>
           <p>
-            Ascend works directly with owners and founders to turn an outdated or underperforming
+            Shift works directly with owners and founders to turn an outdated or underperforming
             website into something the business can be proud to send people to.
           </p>
-          <SiteLink href="/about" className="button button--dark">Why Ascend <Arrow /></SiteLink>
+          <SiteLink href="/about" className="button button--dark">Why Shift <Arrow /></SiteLink>
         </div>
       </section>
 
@@ -563,7 +617,7 @@ function ServicesPage() {
       <PageHero
         label="Services"
         title="One service. Done properly."
-        intro="Ascend designs and builds websites. The scope changes to fit the business, but the standard does not."
+        intro="Shift designs and builds websites. The scope changes to fit the business, but the standard does not."
         accent="blue"
       />
       <section className="service-detail page-shell">
@@ -602,7 +656,7 @@ function ServicesPage() {
             <p>Required website care</p>
             <h2>Built once. Looked after every month.</h2>
             <p>
-              Every Ascend website stays on an active care plan while it is hosted and managed by Ascend.
+              Every Shift website stays on an active care plan while it is hosted and managed by Shift.
               The plan begins when the website goes live.
             </p>
           </div>
@@ -656,20 +710,21 @@ function AboutPage() {
   return (
     <main>
       <PageHero
-        label="About Ascend"
+        label="About Shift"
         title="Built for businesses that refuse to stay behind."
-        intro="Ascend is an independent South African web design studio for owners who know their business deserves a stronger next chapter."
+        intro="Shift is an independent South African web design studio for owners who know their business deserves a stronger next chapter."
         accent="green"
       />
 
       <section className="about-intro page-shell">
-        <div className="about-intro__mark" role="img" aria-label="Ascend staircase logo with a green, pink, and blue base">
-          <div className="about-logo" aria-hidden="true">
-            <span className="about-logo__base" />
-            <span className="about-logo__baseline about-logo__baseline--green" />
-            <span className="about-logo__baseline about-logo__baseline--pink" />
-            <span className="about-logo__baseline about-logo__baseline--blue" />
-          </div>
+        <div className="about-intro__mark">
+          <img
+            className="about-logo"
+            src={shiftAboutLogo}
+            alt="Shift gate logo with a blue, pink, and green movement path"
+            width="1200"
+            height="1200"
+          />
         </div>
         <div data-reveal>
           <p>
@@ -677,7 +732,7 @@ function AboutPage() {
             or simply no longer represent them.
           </p>
           <p>
-            Ascend exists to close that gap. You work directly with the person thinking through,
+            Shift exists to close that gap. You work directly with the person thinking through,
             designing, and building the site—so the process stays focused and the result stays personal.
           </p>
         </div>
@@ -733,7 +788,7 @@ function ContactPage() {
     const email = form.get('email')
     const business = form.get('business') || 'Not provided'
     const message = form.get('message')
-    const subject = `New Ascend project enquiry from ${name}`
+    const subject = `New Shift project enquiry from ${name}`
     const body = [
       `Name: ${name}`,
       `Email: ${email}`,
@@ -743,7 +798,7 @@ function ContactPage() {
     ].join('\n')
 
     setStatus('Opening your email app with the message ready to send.')
-    window.location.href = `mailto:we.ascend.support@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = `mailto:hello@getshiftdone.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
   }
 
   return (
@@ -759,20 +814,27 @@ function ContactPage() {
           <p>Contact channels</p>
           <div>
             <span>Email</span>
-            <a href="mailto:we.ascend.support@gmail.com">
-              <strong>we.ascend.support@gmail.com</strong>
+            <a href="mailto:hello@getshiftdone.co.za">
+              <strong>hello@getshiftdone.co.za</strong>
               <Arrow />
             </a>
           </div>
           <div>
-            <span>Instagram</span>
-            <a href="https://www.instagram.com/ascend.co.za/" target="_blank" rel="noreferrer">
-              <strong>@ascend.co.za</strong>
+            <span className="contact-channel__label"><SocialIcon name="whatsapp" /> WhatsApp Business</span>
+            <a href={socialLinks.whatsapp} target="_blank" rel="noreferrer">
+              <strong>Message Shift</strong>
+              <Arrow />
+            </a>
+          </div>
+          <div>
+            <span className="contact-channel__label"><SocialIcon name="instagram" /> Instagram</span>
+            <a href={socialLinks.instagram} target="_blank" rel="noreferrer">
+              <strong>@getshiftdone.co.za</strong>
               <Arrow />
             </a>
           </div>
           <p className="contact-details__note">
-            Email is best for project enquiries. Instagram is open for updates and direct messages.
+            Email is best for detailed project enquiries. For a quicker conversation, message Shift on WhatsApp or Instagram.
           </p>
         </div>
         <form className="contact-form" onSubmit={handleSubmit} data-reveal>
@@ -789,7 +851,7 @@ function ContactPage() {
             <input name="business" type="text" autoComplete="organization" />
           </label>
           <label>
-            <span>What needs to move forward?</span>
+            <span>What needs to change?</span>
             <textarea name="message" rows="6" required />
           </label>
           <button type="submit" className="button button--light">Prepare message <Arrow /></button>
@@ -885,10 +947,10 @@ function PageHero({ label, title, intro, accent }) {
 
 function FaqSection() {
   const questions = [
-    ['How much does a website cost?', 'Launch projects start at R6 500, Upgrade projects at R12 500, and tailored Custom work from R20 000. Every website also requires Website Care at R650 per month while it is hosted and managed by Ascend.'],
+    ['How much does a website cost?', 'Launch projects start at R6 500, Upgrade projects at R12 500, and tailored Custom work from R20 000. Every website also requires Website Care at R650 per month while it is hosted and managed by Shift.'],
     ['Why is the monthly Website Care plan required?', 'A website needs more than a launch day. The plan keeps your site hosted, backed up, monitored, maintained, and supported, while also including up to 30 minutes of minor content changes each month.'],
-    ['What happens if I cancel Website Care?', "You can cancel with 30 days' notice. Ascend hosting and maintenance end after the notice period, and a transfer can be arranged once the account is up to date. Your domain and content remain yours."],
-    ['Can Ascend improve an existing website?', 'Yes. An upgrade can keep what is useful, rethink what is holding the business back, and rebuild the experience around the next stage of the company.'],
+    ['What happens if I cancel Website Care?', "You can cancel with 30 days' notice. Shift hosting and maintenance end after the notice period, and a transfer can be arranged once the account is up to date. Your domain and content remain yours."],
+    ['Can Shift improve an existing website?', 'Yes. An upgrade can keep what is useful, rethink what is holding the business back, and rebuild the experience around the next stage of the company.'],
     ['How long does a website take?', 'Timing depends on the number of pages, content readiness, and custom features. You will receive a clear timeline with the project scope before work begins.'],
     ['Will the website work on phones?', 'Yes. Responsive behaviour is designed from the start, not treated as a smaller copy of the desktop site at the end.'],
   ]
@@ -914,8 +976,8 @@ function ContactBanner() {
       <div className="contact-banner__signal" aria-hidden="true"><span /><span /><span /></div>
       <div className="page-shell" data-reveal>
         <p>Have a business worth noticing?</p>
-        <h2>Let’s make it look the part.</h2>
-        <SiteLink href="/contact" className="button button--dark">Start a project <Arrow /></SiteLink>
+        <h2>Let’s get shift done.</h2>
+        <SiteLink href="/contact" className="button button--dark">Start your shift <Arrow /></SiteLink>
       </div>
     </section>
   )
@@ -937,29 +999,52 @@ function Footer() {
       <div className="site-footer__top page-shell">
         <Brand compact />
         <div className="site-footer__message">
-          <p className="site-footer__slogan">
-            <span>Simplify.</span>
-            <span>Automate.</span>
-            <span>Ascend</span>
-          </p>
-          <p className="site-footer__description">Websites for local businesses ready to move forward.</p>
+          <span className="site-footer__signal" aria-hidden="true"><i /><i /><i /></span>
+          <p className="site-footer__slogan">Get shift done.</p>
+          <p className="site-footer__description">Websites and ongoing care for local businesses ready to move.</p>
         </div>
-        <nav aria-label="Footer navigation">
-          {navigation.map((item) => <SiteLink key={item.href} href={item.href}>{item.label}</SiteLink>)}
-        </nav>
+        <div className="site-footer__links">
+          <nav aria-label="Footer navigation">
+            {navigation.map((item) => <SiteLink key={item.href} href={item.href}>{item.label}</SiteLink>)}
+          </nav>
+          <div className="site-footer__socials" aria-label="Shift social channels">
+            <a href={socialLinks.whatsapp} target="_blank" rel="noreferrer">
+              <SocialIcon name="whatsapp" />
+              WhatsApp
+            </a>
+            <a href={socialLinks.instagram} target="_blank" rel="noreferrer">
+              <SocialIcon name="instagram" />
+              Instagram
+            </a>
+          </div>
+        </div>
       </div>
       <div className="site-footer__word" aria-hidden="true">
-        <span className="site-footer__word-green">AS</span>
-        <span className="site-footer__word-pink">CE</span>
-        <span className="site-footer__word-blue">ND</span>
+        <span className="site-footer__word-green">SH</span>
+        <span className="site-footer__word-pink">IF</span>
+        <span className="site-footer__word-blue">T</span>
       </div>
       <div className="site-footer__bottom page-shell">
         <p>South Africa</p>
-        <p>© {new Date().getFullYear()} Ascend</p>
-        <p>Built for what comes next.</p>
+        <p>© {new Date().getFullYear()} Shift</p>
+        <p>getshiftdone.co.za</p>
         <a className="site-footer__back" href="#page-content">Back to top <Arrow direction="up" /></a>
       </div>
     </footer>
+  )
+}
+
+function WhatsAppButton() {
+  return (
+    <a
+      className="whatsapp-button"
+      href={socialLinks.whatsapp}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Chat with Shift on WhatsApp"
+    >
+      <ChatIcon />
+    </a>
   )
 }
 
@@ -979,11 +1064,11 @@ function RouteView({ pathname }) {
 function App() {
   const pathname = usePathname()
   const routeTitle = useMemo(() => {
-    if (pathname === '/') return 'Ascend — Websites for what comes next'
+    if (pathname === '/') return 'Shift — Get shift done'
     const project = pathname.startsWith('/work/') && projects.find((item) => pathname.endsWith(item.slug))
-    if (project) return `${project.title} — Ascend`
+    if (project) return `${project.title} — Shift`
     const name = pathname.slice(1)
-    return `${name.charAt(0).toUpperCase()}${name.slice(1)} — Ascend`
+    return `${name.charAt(0).toUpperCase()}${name.slice(1)} — Shift`
   }, [pathname])
 
   useEffect(() => {
@@ -1021,6 +1106,7 @@ function App() {
         <RouteView pathname={pathname} />
       </div>
       <Footer />
+      <WhatsAppButton />
     </div>
   )
 }

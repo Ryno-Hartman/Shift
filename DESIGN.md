@@ -1,8 +1,8 @@
-# Ascend Design System
+# Shift Design System
 
 ## Direction
 
-Ascend feels like a precision workshop after dark: near-black architecture, crisp white typography, and vivid blue, pink, and green signals that suggest momentum without becoming a neon spectacle. Boldium informs the confidence, scale, and project-first pacing; Ascend’s local-business focus, energetic palette, and upward visual language make it distinct.
+Shift feels like a precision workshop after dark: near-black architecture, crisp white typography, and vivid blue, pink, and green signals that suggest motion without becoming a neon spectacle. Boldium informs the confidence, scale, and project-first pacing; Shift’s local-business focus, energetic palette, and gear-changing language make it distinct.
 
 ## Colour
 
@@ -23,7 +23,7 @@ Display type uses Bahnschrift with condensed fallbacks to create a precise, engi
 ## Components
 
 - Sticky global header with a full-screen mobile navigation panel.
-- Temporary Ascend wordmark that can be replaced by the final logo asset.
+- Shift wordmark paired with the existing staircase mark as a symbol of forward movement.
 - Route-aware links for Home, Work, Services, About, Contact, and case studies.
 - Project showcases rendered as stylised web canvases until final screenshots are supplied.
 - Service rows, process timeline, FAQ disclosure controls, contact form, and local-only status messages.

@@ -1,6 +1,6 @@
-# Ascend
+# Shift
 
-Ascend is a local portfolio and marketing website for a South African web design studio.
+Shift is a local portfolio and marketing website for a South African web design studio.
 
 ## Open locally
 
@@ -15,6 +15,6 @@ Use `npm run build` to create the production-ready `dist` folder.
 
 - Page content and project information live in `src/App.jsx`.
 - Colours, typography, layout, and motion live in `src/styles.css`.
-- Replace the temporary text wordmark inside the `Brand` component when the final logo is ready.
+- The staircase mark is paired with the Shift wordmark inside the `Brand` component.
 - Replace the placeholder social and contact labels after the business accounts are created.
 - Replace the stylised project previews with final screenshots when the project links are confirmed.

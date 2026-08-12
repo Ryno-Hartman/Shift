@@ -340,6 +340,7 @@ p {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
+  gap: 0.45rem;
   border-bottom: 1px solid var(--line-dark);
   color: var(--grey-light);
   font-size: 0.7rem;
@@ -347,6 +348,30 @@ p {
 }
 
 .mobile-menu__footer a:hover { color: var(--white); }
+
+.social-icon {
+  display: inline-flex;
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.social-icon__dot {
+  fill: currentColor;
+  stroke: none;
+}
 
 .button {
   display: inline-flex;
@@ -1658,32 +1683,10 @@ p {
 }
 
 .about-logo {
-  position: relative;
-  width: 108%;
-  aspect-ratio: 1;
-}
-
-.about-logo > span {
-  position: absolute;
-  inset: 0;
-  background: var(--white);
-  -webkit-mask: url("../assets/brand/ascend-logo-white-transparent.png") center / contain no-repeat;
-  mask: url("../assets/brand/ascend-logo-white-transparent.png") center / contain no-repeat;
-}
-
-.about-logo > .about-logo__baseline--green {
-  background: var(--green);
-  clip-path: polygon(15.9% 75.1%, 33.75% 75.1%, 33.75% 80.1%, 15.9% 80.1%);
-}
-
-.about-logo > .about-logo__baseline--pink {
-  background: var(--pink);
-  clip-path: polygon(33.45% 75.1%, 51.15% 75.1%, 51.15% 80.1%, 33.45% 80.1%);
-}
-
-.about-logo > .about-logo__baseline--blue {
-  background: var(--blue);
-  clip-path: polygon(50.85% 75.1%, 68.8% 75.1%, 68.8% 80.1%, 50.85% 80.1%);
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .about-intro > div:last-child {
@@ -1795,6 +1798,18 @@ p {
 .contact-details > div > span {
   color: var(--grey-mid);
   font-size: 0.68rem;
+}
+
+.contact-details > div > .contact-channel__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.contact-channel__label .social-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--green);
 }
 
 .contact-details > div a {
@@ -2060,45 +2075,41 @@ p {
 
 .site-footer__message {
   display: grid;
-  gap: 0.9rem;
+  gap: 0.75rem;
 }
 
 .site-footer__message p {
   margin-bottom: 0;
 }
 
+.site-footer__signal {
+  display: grid;
+  width: 72px;
+  height: 5px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.site-footer__signal i:nth-child(1) { background: var(--green); }
+.site-footer__signal i:nth-child(2) { background: var(--pink); }
+.site-footer__signal i:nth-child(3) { background: var(--blue); }
+
 .site-footer__slogan {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem 0.8rem;
   font-family: var(--display);
-  font-size: clamp(1.45rem, 2.6vw, 2.3rem);
-  font-weight: 600;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 650;
   letter-spacing: -0.03em;
-  line-height: 1;
+  line-height: 0.95;
 }
-
-.site-footer__slogan span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-}
-
-.site-footer__slogan span::before {
-  width: 0.22em;
-  height: 0.22em;
-  flex: 0 0 auto;
-  content: "";
-}
-
-.site-footer__slogan span:nth-child(1)::before { background: var(--green); }
-.site-footer__slogan span:nth-child(2)::before { background: var(--pink); }
-.site-footer__slogan span:nth-child(3)::before { background: var(--blue); }
 
 .site-footer__description {
   max-width: 26rem;
   color: var(--grey-light);
   font-size: 0.82rem;
+}
+
+.site-footer__links {
+  display: grid;
+  gap: 1.5rem;
 }
 
 .site-footer__top nav {
@@ -2120,12 +2131,32 @@ p {
 .site-footer__top nav a:nth-child(2):hover { color: var(--pink); }
 .site-footer__top nav a:nth-child(3):hover { color: var(--blue); }
 
+.site-footer__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.25rem;
+}
+
+.site-footer__socials a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--grey-light);
+  font-size: 0.72rem;
+  font-weight: 650;
+  transition: color 220ms ease;
+}
+
+.site-footer__socials a:first-child:hover { color: var(--green); }
+.site-footer__socials a:last-child:hover { color: var(--pink); }
+
 .site-footer__word {
   display: flex;
   width: max-content;
   margin-left: -0.03em;
   font-family: var(--display);
-  font-size: clamp(5rem, 21vw, 19rem);
+  font-size: clamp(5rem, 30vw, 36rem);
   font-weight: 650;
   letter-spacing: -0.035em;
   line-height: 0.78;
@@ -2192,6 +2223,55 @@ p {
 
 .site-footer__back:hover span {
   transform: translateY(-3px);
+}
+
+.whatsapp-button {
+  position: fixed;
+  z-index: 38;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  display: inline-flex;
+  width: 62px;
+  height: 62px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--black);
+  transition: background-color 220ms ease, color 220ms ease, transform 300ms var(--ease-out);
+}
+
+.whatsapp-button .chat-icon {
+  display: inline-flex;
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+.whatsapp-button .chat-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.whatsapp-button:hover {
+  background: var(--blue);
+  color: var(--white);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 520px) {
+  .whatsapp-button {
+    width: 54px;
+    height: 54px;
+  }
+
+  .whatsapp-button .chat-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 
 .motion-ready [data-reveal] {
