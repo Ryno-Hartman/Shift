@@ -780,25 +780,38 @@ function AboutPage() {
 
 function ContactPage() {
   const [status, setStatus] = useState('')
+  const [statusKind, setStatusKind] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    const form = new FormData(event.currentTarget)
-    const name = form.get('name')
-    const email = form.get('email')
-    const business = form.get('business') || 'Not provided'
-    const message = form.get('message')
-    const subject = `New Shift project enquiry from ${name}`
-    const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Business: ${business}`,
-      '',
-      message,
-    ].join('\n')
+    const formElement = event.currentTarget
+    const formData = new FormData(formElement)
+    const encodedForm = new URLSearchParams()
 
-    setStatus('Opening your email app with the message ready to send.')
-    window.location.href = `mailto:hello@getshiftdone.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    formData.forEach((value, key) => encodedForm.append(key, value))
+    setSubmitting(true)
+    setStatusKind('pending')
+    setStatus('Sending your project enquiry…')
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encodedForm.toString(),
+      })
+
+      if (!response.ok) throw new Error('Submission failed')
+
+      formElement.reset()
+      setStatusKind('success')
+      setStatus('Message sent. Thanks—I’ll be in touch soon.')
+    } catch {
+      setStatusKind('error')
+      setStatus('Something went wrong. Please email or message Shift on WhatsApp instead.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -837,7 +850,19 @@ function ContactPage() {
             Email is best for detailed project enquiries. For a quicker conversation, message Shift on WhatsApp or Instagram.
           </p>
         </div>
-        <form className="contact-form" onSubmit={handleSubmit} data-reveal>
+        <form
+          className="contact-form"
+          name="shift-project-enquiry"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          onSubmit={handleSubmit}
+          data-reveal
+        >
+          <input type="hidden" name="form-name" value="shift-project-enquiry" />
+          <p hidden>
+            <label>Do not fill this out: <input name="bot-field" /></label>
+          </p>
           <label>
             <span>Your name</span>
             <input name="name" type="text" autoComplete="name" required />
@@ -854,8 +879,12 @@ function ContactPage() {
             <span>What needs to change?</span>
             <textarea name="message" rows="6" required />
           </label>
-          <button type="submit" className="button button--light">Prepare message <Arrow /></button>
-          <p className="form-status" role="status" aria-live="polite">{status}</p>
+          <button type="submit" className="button button--light" disabled={submitting}>
+            {submitting ? 'Sending…' : 'Send project enquiry'} <Arrow />
+          </button>
+          <p className={`form-status${statusKind ? ` form-status--${statusKind}` : ''}`} role="status" aria-live="polite">
+            {status}
+          </p>
         </form>
       </section>
     </main>

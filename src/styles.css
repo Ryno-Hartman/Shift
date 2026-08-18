@@ -1896,12 +1896,21 @@ p {
   margin-top: 0.75rem;
 }
 
+.contact-form .button:disabled {
+  cursor: wait;
+  opacity: 0.62;
+}
+
 .form-status {
   min-height: 3rem;
   margin-bottom: 0;
   color: var(--green);
   font-size: 0.8rem;
 }
+
+.form-status--pending { color: var(--grey-light); }
+.form-status--success { color: var(--green); }
+.form-status--error { color: var(--pink); }
 
 .case-hero {
   padding-top: clamp(4rem, 8vw, 7rem);
